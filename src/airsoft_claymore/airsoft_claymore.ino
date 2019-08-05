@@ -12,7 +12,6 @@ void readCountdown(int manualbt, int okbt, int &cd)
   while(read_ok == 1)
   {
     read_manual_current = digitalRead(manualbt);
-    Serial.println(read_manual_current);
     read_ok = digitalRead(okbt);
     if(read_manual_current == 0 && read_manual_prev == 1)
     {
@@ -20,7 +19,6 @@ void readCountdown(int manualbt, int okbt, int &cd)
     }
     read_manual_prev = read_manual_current;
   }
-  Serial.println("HE salido del bucle");
   cd = count;
 }
 
@@ -45,8 +43,6 @@ const int ButtonManualControl = 3;
 const int ButtonOk = 5;
 
 void setup() {
-  Serial.begin(9600);
-  
   pinMode(Buzzer, OUTPUT);
   pinMode(ButtonManualControl, INPUT);
   pinMode(ButtonOk, INPUT);
@@ -70,9 +66,7 @@ void loop() {
       digitalWrite(13, HIGH);
       int countdown;
       readCountdown(ButtonManualControl, ButtonOk, countdown);
-      Serial.println(countdown);
       delay(countdown * 1000);
-      Serial.println("Explota la bomba");
       boom();
       explode = true;
     }
